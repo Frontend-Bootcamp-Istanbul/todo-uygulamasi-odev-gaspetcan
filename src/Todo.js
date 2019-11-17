@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Todo(props) {
-    const {content} = props;
+    const {content, id} = props;
     return (
         <div style={{
             margin: "10px"
@@ -14,6 +14,8 @@ function Todo(props) {
                 marginLeft: "10px",
                 padding: "5px",
                 color: "#fff"
+            }} onClick={() => {
+                props.todoSil(id)
             }}> Sil</span>
         </div>
     );

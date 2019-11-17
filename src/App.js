@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import TodoList from "./TodoList";
 import AddTodo from "./AddTodo";
+import RemoveAll from "./RemoveAll";
 
 
 class App extends Component {
@@ -11,6 +12,8 @@ class App extends Component {
     };
 
     this.ekle = this.ekle.bind(this);
+    this.todoSil = this.todoSil.bind(this);
+    this.removeAll = this.removeAll.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +36,25 @@ class App extends Component {
       })
   }
 
+  todoSil(id){
+      const newArray = this.state.todos.filter((todo) => {
+         return todo.id !== id;
+      });
+      this.setState({
+          todos: newArray
+      }, () => {
+          window.localStorage.setItem("todos", JSON.stringify(this.state.todos));
+      });
+  }
+
+  removeAll(){
+    this.setState({
+        todos: []
+    }, () => {
+        window.localStorage.removeItem("todos");
+    })
+  }
+
   render(){
     return (
         <div className="App">
@@ -40,9 +62,12 @@ class App extends Component {
             <AddTodo
               onAdd={this.ekle}
             />
+            <RemoveAll
+             onRemove={this.removeAll}
+            />
           </div>
           <div>
-            <TodoList todos={this.state.todos}/>
+            <TodoList todos={this.state.todos} todoSil={this.todoSil}/>
           </div>
         </div>
     );

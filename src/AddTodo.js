@@ -13,7 +13,6 @@ class AddTodo extends React.Component {
 
     onInputChange(e){
         const newVal = e.target.value;
-        console.log(newVal);
         this.setState({
             inputVal: newVal
         });
