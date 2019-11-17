@@ -14,7 +14,18 @@ class App extends Component {
     this.ekle = this.ekle.bind(this);
   }
 
-  ekle(){
+  componentDidMount() {
+    let localTodos = window.localStorage.getItem("todos");
+    if(localTodos){
+      localTodos  = JSON.parse(localTodos);
+    }
+    this.setState({
+      todos: localTodos || []
+    })
+  }
+
+  ekle(e){
+    e.preventDefault();
     // 5 karakterden küçükse eklemeyelim.
     const currentValue = this.state.inputVal;
     const hasItem = this.state.todos.some((todo) => {
@@ -30,6 +41,7 @@ class App extends Component {
         id: Math.random()
       }])
     }, () => {
+      window.localStorage.setItem("todos", JSON.stringify(this.state.todos));
       this.setState({
         inputVal: ""
       });
@@ -47,8 +59,10 @@ class App extends Component {
     return (
         <div className="App">
           <div>
-            <input type="text" value={this.state.inputVal} onChange={this.onInputChange}/>
-            <button onClick={this.ekle}>Ekle</button>
+            <form onSubmit={this.ekle}>
+              <input type="text" value={this.state.inputVal} onChange={this.onInputChange}/>
+              <button>Ekle</button>
+            </form>
           </div>
           <div>
             <TodoList todos={this.state.todos}/>
