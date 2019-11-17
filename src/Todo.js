@@ -1,11 +1,21 @@
 import React from 'react';
 
 function Todo(props) {
-    const {content, id} = props;
+    const {content, id, checked} = props;
+    let itemClass= "";
+    if(checked){
+        itemClass = "checked";
+    }
     return (
-        <div style={{
+        <div
+        className={itemClass}
+            style={{
             margin: "10px"
-        }}>
+        }}
+        onClick={() => {
+            props.toggleComplete(id);
+        }}
+        >
             {content}
             <span style={{
                 backgroundColor: "red",

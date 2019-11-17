@@ -22,6 +22,7 @@ class TodoList extends React.Component{
                             {...todo}
                             key={todo.id}
                             todoSil={this.props.todoSil}
+                            toggleComplete={this.props.toggleComplete}
                         />
                     })
                 }

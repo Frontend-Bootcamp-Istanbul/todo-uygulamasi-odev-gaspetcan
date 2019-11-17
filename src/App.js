@@ -3,6 +3,8 @@ import TodoList from "./TodoList";
 import AddTodo from "./AddTodo";
 import RemoveAll from "./RemoveAll";
 
+import "./App.css";
+
 
 class App extends Component {
   constructor(props){
@@ -14,6 +16,7 @@ class App extends Component {
     this.ekle = this.ekle.bind(this);
     this.todoSil = this.todoSil.bind(this);
     this.removeAll = this.removeAll.bind(this);
+    this.toggleComplete = this.toggleComplete.bind(this);
   }
 
   componentDidMount() {
@@ -29,7 +32,7 @@ class App extends Component {
   ekle(newValue){
       this.setState({
         todos: [...this.state.todos].concat([
-            { content: newValue, id: Math.random()}
+            { content: newValue, id: Math.random(), checked: false}
         ])
       }, () => {
         window.localStorage.setItem("todos", JSON.stringify(this.state.todos))
@@ -55,6 +58,23 @@ class App extends Component {
     })
   }
 
+  toggleComplete(id){
+      const newArr = this.state.todos.map((todo) => {
+          if(id === todo.id){
+              let currentTodo = {...todo};
+              currentTodo.checked = !currentTodo.checked;
+              return currentTodo;
+          }else{
+              return todo;
+          }
+      });
+      this.setState({
+          todos: newArr
+      }, () => {
+          window.localStorage.setItem("todos", JSON.stringify(this.state.todos));
+      });
+  }
+
   render(){
     return (
         <div className="App">
@@ -67,7 +87,7 @@ class App extends Component {
             />
           </div>
           <div>
-            <TodoList todos={this.state.todos} todoSil={this.todoSil}/>
+            <TodoList todos={this.state.todos} todoSil={this.todoSil} toggleComplete={this.toggleComplete}/>
           </div>
         </div>
     );
