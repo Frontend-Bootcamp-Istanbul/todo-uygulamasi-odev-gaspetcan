@@ -2,31 +2,16 @@ import React from 'react';
 
 function Todo(props) {
     const {content, id, checked} = props;
-    let itemClass= "";
+    let itemClass= "todo-item";
     if(checked){
-        itemClass = "checked";
+        itemClass += " checked";
     }
     return (
-        <div
-        className={itemClass}
-            style={{
-            margin: "10px"
-        }}
-        onClick={() => {
-            props.toggleComplete(id);
-        }}
-        >
+        <div className={itemClass} onClick={() => {props.onCheckedToggle(id);}}>
             {content}
-            <span style={{
-                backgroundColor: "red",
-                fontWeight: "bold",
-                display: "inline-block",
-                marginLeft: "10px",
-                padding: "5px",
-                color: "#fff"
-            }} onClick={() => {
-                props.todoSil(id)
-            }}> Sil</span>
+            <span
+                className="remove-todo"
+                onClick={(e) => {e.stopPropagation();props.onTodoRemove(id)}}>X</span>
         </div>
     );
 }

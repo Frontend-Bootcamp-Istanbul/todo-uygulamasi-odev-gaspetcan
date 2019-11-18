@@ -7,20 +7,20 @@ class AddTodo extends React.Component {
         this.state = {
             inputVal: ""
         };
-        this.onInputChange = this.onInputChange.bind(this);
-        this.ekle = this.ekle.bind(this);
+        this.changeInput = this.changeInput.bind(this);
+        this.addTodo = this.addTodo.bind(this);
     }
 
-    onInputChange(e){
+    changeInput(e){
         const newVal = e.target.value;
         this.setState({
             inputVal: newVal
         });
     }
 
-    ekle(event){
+    addTodo(event){
         event.preventDefault();
-        this.props.onAdd(this.state.inputVal);
+        this.props.onTodoAdd(this.state.inputVal);
         this.setState({
             inputVal: ""
         });
@@ -29,11 +29,11 @@ class AddTodo extends React.Component {
     render() {
         const {onAdd} = this.props;
         return <form
-            onSubmit={this.ekle}>
+            onSubmit={this.addTodo}>
             <input
                 type="text"
                 value={this.state.inputVal}
-                onChange={this.onInputChange} />
+                onChange={this.changeInput} />
             <button>Ekle</button>
         </form>
     }

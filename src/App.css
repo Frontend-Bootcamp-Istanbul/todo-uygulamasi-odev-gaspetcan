@@ -1,26 +1,89 @@
-.App {
+@import url(https://fonts.googleapis.com/css?family=Cantarell);
+
+body {
+  font-family: 'Cantarell', Lucida Grande, sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+}
+h3 {
+  background: #346;
   text-align: center;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 0 0 2px 2px;
+  margin:0;
+  margin-bottom: 20px;
+}
+ul {
+  list-style-type: square;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+input[type=text] {
+  border: 1px solid #ccc;
+  padding: 7px 5px;
+  width: 150px;
+  font-size: 14px;
+}
+input[type=submit] {
+  border: 1px solid #ccc;
+  margin-left: 15px;
+  padding: 5px 15px;
+  font-size: 1em;
+}
+#todo {
+  background-color: whitesmoke;
+  border-radius: 3px;
+  width: 850px;
+  margin: 30px auto;
+  border: 1px solid #ddd;
 }
 
-.App-logo {
-  height: 40vmin;
+.todo-list {
+  display: inline-block;
+  width: 30%;
+  padding:10px;
+  vertical-align: top;
+}
+.todo-list + .todo-list {
+  border-left: 2px solid darkgray;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+button {
+  border: 1px solid #ccc;
+  margin-left: 15px;
+  padding: 5px 15px;
+  font-size: 1em;
 }
 
-.App-link {
-  color: #09d3ac;
+button.remove-all{
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #7d3232;
+  color: #fff;
+  cursor: pointer;
 }
 
 .checked {
   text-decoration: line-through;
+}
+
+.todo-item {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.remove-todo {
+  background-color: #76030B;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 10px;
+  padding: 5px;
+  color: #fff;
+  border-radius: 5px;
 }
