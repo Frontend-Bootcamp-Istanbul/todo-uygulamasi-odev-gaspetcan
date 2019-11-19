@@ -10,5 +10,5 @@
 ## İpucu
 1.Kodda göreceğiniz üzere 2 Todolist'in componentinin de "todos" propu boş array. Bunları istediğimiz koşullara uyan arraylerle doldurmamız gerekiyor.
 
-2. Bir array'in içinde kaç eleman olduğun length değeri ile alabiliyoruz.
+2.Bir array'in içinde kaç eleman olduğun length değeri ile alabiliyoruz.
 
