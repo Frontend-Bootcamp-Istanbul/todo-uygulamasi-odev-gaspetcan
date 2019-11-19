@@ -9,7 +9,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-        todos: []
+        todos: [],
+        completedTodos: []
     };
 
     this.addTodo = this.addTodo.bind(this);
@@ -19,14 +20,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // Component oluştuktan sonra gerekli olan datayı localstoragedan geyiriyoruz.
+    // Component oluştuktan sonra gerekli olan datayı localstoragedan getiriyoruz.
     let localTodos = window.localStorage.getItem("todos");
+    let localCompletedTodos = window.localStorage.getItem("completedTodos");
+
     if(localTodos){
       localTodos  = JSON.parse(localTodos);
+      localCompletedTodos  = JSON.parse(localCompletedTodos);
     }
     // Getirdiğimiz datayı state'e kaydediyoruz.
     this.setState({
-      todos: localTodos || []
+      todos: localTodos || [],
+      completedTodos: localCompletedTodos || []
     })
   }
 
@@ -59,9 +64,11 @@ class App extends Component {
 
   removeAllTodos(){
     this.setState({
-        todos: []
+        todos: [],
+        completedTodos: []
     }, () => {
         window.localStorage.removeItem("todos");
+        window.localStorage.removeItem("completedTodos")
     })
   }
 
@@ -69,20 +76,30 @@ class App extends Component {
       // Map ile mevcut todolar arasında döngüye girip, değiştirmek istediğimi farklı şekilde dönüyorum.
       // Aradığım itemin checked statusunu değiştiriyorum, rest ile kopyalayarak yani mutate etmeden.
       // Diğer elemanları olduğu gibi dönüyorum, "return todo";
-      const newArr = this.state.todos.map((todo) => {
+      let completedTodo = this.state.completedTodos;
+
+      let newArr = this.state.todos.map((todo) => {
           if(id === todo.id){
               let currentTodo = {...todo};
-              currentTodo.checked = !currentTodo.checked;
-              return currentTodo;
-          }else{
+              currentTodo.checked = true;
+              completedTodo.push(currentTodo);
+              return currentTodo !== todo;
+          }
+
+          else{
               return todo;
           }
       });
+
+
       this.setState({
-          todos: newArr
+          todos: newArr,
+          completedTodos: completedTodo
       }, () => {
           window.localStorage.setItem("todos", JSON.stringify(this.state.todos));
+          window.localStorage.setItem("completedTodos", JSON.stringify(this.state.completedTodos));
       });
+
   }
 
   render(){
@@ -98,15 +115,16 @@ class App extends Component {
 
             <TodoList
                 title="Tamamlanmamış Todolar"
-                todos={[]}
+                todos={this.state.todos}
                 onTodoRemove={this.removeTodo}
                 onCheckedToggle={this.toggleCompleteStatus} />
 
             <TodoList
                 title="Tamamlanmış Todolar"
-                todos={[]}
+                todos={this.state.completedTodos}
                 onTodoRemove={this.removeTodo}
-                onCheckedToggle={this.toggleCompleteStatus} />
+                onCheckedToggle={this.toggleCompleteStatus}/>
+
         </div>
     );
   }

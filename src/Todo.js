@@ -7,12 +7,21 @@ function Todo(props) {
         itemClass += " checked";
     }
     return (
-        <div className={itemClass} onClick={() => {props.onCheckedToggle(id);}}>
+        <div
+            className={itemClass}
+            onClick={checked ? null : () => {props.onCheckedToggle(id)}}
+        >
             {content}
-            <span
-                className="remove-todo"
-                onClick={(e) => {e.stopPropagation();props.onTodoRemove(id)}}>X</span>
-        </div>
+            {   content == null || checked ?
+                null :
+                <span
+                    className="remove-todo"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        props.onTodoRemove(id)
+                    }}>X</span>
+            }
+            </div>
     );
 }
 

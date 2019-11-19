@@ -6,6 +6,8 @@ class TodoList extends React.Component{
     constructor(props){
         super(props);
     }
+
+
     render(){
         return (
             <div className="todo-list">
@@ -20,6 +22,7 @@ class TodoList extends React.Component{
                         />
                     })
                 }
+
             </div>
         );
     }
